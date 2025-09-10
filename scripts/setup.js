@@ -13,26 +13,25 @@ console.log('Payload CMS Website Local Setup');
 console.log('================================');
 
 /**
- * Clone a repository from GitHub
- * @param {string} url - Repository URL
- * @param {string} directory - Local directory name
+ * Install dependencies using npm
+ * @param {string} directory - Project directory
  * @returns {Promise<string>} Success message
  */
-function cloneRepository(url, directory) {
+function installDependencies(directory) {
   return new Promise((resolve, reject) => {
-    const command = `git clone ${url} ${directory}`;
+    const command = `cd ${directory} && npm install`;
     exec(command, (error, stdout, stderr) => {
       if (error) {
-        reject(new Error(`Failed to clone repository: ${error.message}`));
+        reject(new Error(`Installation failed: ${error.message}`));
       } else {
-        resolve('Repository cloned successfully');
+        resolve('Dependencies installed successfully');
       }
     });
   });
 }
 
 // Export for testing
-module.exports = { cloneRepository };
+module.exports = { cloneRepository, installDependencies };
 
 // Placeholder for main execution
 if (require.main === module) {
