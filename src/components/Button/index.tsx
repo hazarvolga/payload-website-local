@@ -336,20 +336,16 @@ export const Button = ({
 
   if (el === 'link') {
     return (
-      <Link href={href} legacyBehavior passHref prefetch={false}>
-        <a
-          className={className}
-          {...newTabProps}
-          id={id}
-          onMouseEnter={() => {
-            setIsHovered(true)
-          }}
-          onMouseLeave={() => {
-            setIsHovered(false)
-          }}
-        >
-          <ButtonContent {...props} />
-        </a>
+      <Link
+        href={href}
+        prefetch={false}
+        className={className}
+        id={id}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        {...newTabProps}
+      >
+        <ButtonContent {...props} />
       </Link>
     )
   }
