@@ -36,6 +36,27 @@ module.exports = { cloneRepository, installDependencies, startDevServer };
 
 // Placeholder for main execution
 if (require.main === module) {
-  // Main execution logic will be added
-  process.exit(0);
+  const url = process.argv[2] || 'https://github.com/payloadcms/website';
+  const directory = process.argv[3] || 'payload-website';
+  const port = parseInt(process.argv[4]) || 3000;
+
+  console.log(`Setting up Payload CMS website from ${url}...`);
+
+  cloneRepository(url, directory)
+    .then(() => {
+      console.log('✓ Repository cloned');
+      return installDependencies(directory);
+    })
+    .then(() => {
+      console.log('✓ Dependencies installed');
+      return startDevServer(directory, port);
+    })
+    .then((message) => {
+      console.log('✓ ' + message);
+      console.log('Setup complete! Visit the website at the URL above.');
+    })
+    .catch((error) => {
+      console.error('Setup failed:', error.message);
+      process.exit(1);
+    });
 }
