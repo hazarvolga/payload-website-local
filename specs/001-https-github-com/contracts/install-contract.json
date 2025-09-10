@@ -1,0 +1,35 @@
+{
+  "operation": "install_dependencies",
+  "command": "npm install",
+  "description": "Install Node.js dependencies from package.json",
+  "inputs": {
+    "directory": {
+      "type": "string",
+      "description": "Project directory containing package.json",
+      "example": "payload-website"
+    }
+  },
+  "outputs": {
+    "success": {
+      "type": "string",
+      "description": "Success message",
+      "example": "Dependencies installed successfully"
+    },
+    "error": {
+      "type": "string",
+      "description": "Error message",
+      "example": "Installation failed: <error details>"
+    }
+  },
+  "preconditions": [
+    "Node.js is installed",
+    "npm is installed",
+    "package.json exists in directory",
+    "Network connection available"
+  ],
+  "postconditions": [
+    "node_modules directory exists",
+    "All dependencies are installed",
+    "package-lock.json is updated"
+  ]
+}

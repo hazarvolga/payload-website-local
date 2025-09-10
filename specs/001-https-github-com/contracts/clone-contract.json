@@ -1,0 +1,38 @@
+{
+  "operation": "clone_repository",
+  "command": "git clone <url> <directory>",
+  "description": "Clone the GitHub repository to local directory",
+  "inputs": {
+    "url": {
+      "type": "string",
+      "description": "Git repository URL",
+      "example": "https://github.com/payloadcms/website"
+    },
+    "directory": {
+      "type": "string",
+      "description": "Local directory name",
+      "example": "payload-website"
+    }
+  },
+  "outputs": {
+    "success": {
+      "type": "string",
+      "description": "Success message",
+      "example": "Repository cloned successfully"
+    },
+    "error": {
+      "type": "string",
+      "description": "Error message",
+      "example": "Failed to clone repository: <error details>"
+    }
+  },
+  "preconditions": [
+    "Git is installed",
+    "Valid Git URL provided",
+    "Network connection available"
+  ],
+  "postconditions": [
+    "Repository files exist in local directory",
+    "Git history is available"
+  ]
+}

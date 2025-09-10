@@ -1,0 +1,39 @@
+{
+  "operation": "start_dev_server",
+  "command": "npm run dev",
+  "description": "Start the development server",
+  "inputs": {
+    "directory": {
+      "type": "string",
+      "description": "Project directory",
+      "example": "payload-website"
+    },
+    "port": {
+      "type": "number",
+      "description": "Port to run the server on",
+      "example": 3000
+    }
+  },
+  "outputs": {
+    "success": {
+      "type": "string",
+      "description": "Success message with URL",
+      "example": "Server running on http://localhost:3000"
+    },
+    "error": {
+      "type": "string",
+      "description": "Error message",
+      "example": "Failed to start server: <error details>"
+    }
+  },
+  "preconditions": [
+    "Dependencies are installed",
+    "Port is available",
+    "package.json has dev script"
+  ],
+  "postconditions": [
+    "Server is running on specified port",
+    "Application is accessible via browser",
+    "Hot reload is enabled"
+  ]
+}
