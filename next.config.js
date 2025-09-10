@@ -81,30 +81,35 @@ const nextConfig = withBundleAnalyzer({
         hostname: 'img.youtube.com',
         port: '',
       },
-      {
-        protocol: 'https',
-        hostname: process.env.BLOB_STORE_ID,
-      },
-    ].filter(Boolean),
+      // Add blob storage hostname only if defined
+      ...(process.env.BLOB_STORE_ID
+        ? [
+            {
+              protocol: 'https',
+              hostname: process.env.BLOB_STORE_ID,
+              port: '',
+            },
+          ]
+        : []),
+    ].filter(p => typeof p.hostname === 'string' && p.hostname.length > 0),
   },
   sassOptions: {
     silenceDeprecations: ['legacy-js-api', 'import'], // https://github.com/vercel/next.js/issues/71638
   },
-  experimental: {
-    turbo: {
-      resolveAlias: {
-        '@scss': path.resolve(dirname, './src/css/'),
-        '@components': path.resolve(dirname, './src/components.js'),
-        '@cloud': path.resolve(dirname, './src/app/cloud'),
-        '@forms': path.resolve(dirname, './src/forms'),
-        '@blocks': path.resolve(dirname, './src/blocks'),
-        '@providers': path.resolve(dirname, './src/providers'),
-        '@icons': path.resolve(dirname, './src/icons'),
-        '@utilities': path.resolve(dirname, './src/utilities'),
-        '@types': path.resolve(dirname, './payload-types.ts'),
-        '@graphics': path.resolve(dirname, './src/graphics'),
-        '@graphql': path.resolve(dirname, './src/graphql'),
-      },
+  // Migrated from deprecated experimental.turbo → stable turbopack config
+  turbopack: {
+    resolveAlias: {
+      '@scss': path.resolve(dirname, './src/css/'),
+      '@components': path.resolve(dirname, './src/components.js'),
+      '@cloud': path.resolve(dirname, './src/app/cloud'),
+      '@forms': path.resolve(dirname, './src/forms'),
+      '@blocks': path.resolve(dirname, './src/blocks'),
+      '@providers': path.resolve(dirname, './src/providers'),
+      '@icons': path.resolve(dirname, './src/icons'),
+      '@utilities': path.resolve(dirname, './src/utilities'),
+      '@types': path.resolve(dirname, './payload-types.ts'),
+      '@graphics': path.resolve(dirname, './src/graphics'),
+      '@graphql': path.resolve(dirname, './src/graphql'),
     },
   },
   webpack: (config) => {
