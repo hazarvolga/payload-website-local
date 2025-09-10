@@ -13,25 +13,26 @@ console.log('Payload CMS Website Local Setup');
 console.log('================================');
 
 /**
- * Install dependencies using npm
+ * Start the development server
  * @param {string} directory - Project directory
+ * @param {number} port - Port to run the server
  * @returns {Promise<string>} Success message
  */
-function installDependencies(directory) {
+function startDevServer(directory, port) {
   return new Promise((resolve, reject) => {
-    const command = `cd ${directory} && npm install`;
+    const command = `cd ${directory} && npm run dev -- --port ${port}`;
     exec(command, (error, stdout, stderr) => {
       if (error) {
-        reject(new Error(`Installation failed: ${error.message}`));
+        reject(new Error(`Failed to start server: ${error.message}`));
       } else {
-        resolve('Dependencies installed successfully');
+        resolve(`Server running on http://localhost:${port}`);
       }
     });
   });
 }
 
 // Export for testing
-module.exports = { cloneRepository, installDependencies };
+module.exports = { cloneRepository, installDependencies, startDevServer };
 
 // Placeholder for main execution
 if (require.main === module) {
